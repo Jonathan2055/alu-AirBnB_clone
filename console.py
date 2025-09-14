@@ -53,10 +53,12 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) == 1:
             print("** instance id missing **")
         elif args[0] + '.' + args[1] not in models.storage\
-                                              ._FileStorage__objects.keys():
+                ._FileStorage__objects.keys():
             print("** no instance found **")
         else:
-            print(models.storage._FileStorage__objects[args[0] + '.' + args[1]])
+            print(models.storage._FileStorage__objects[
+                args[0] + '.' + args[1]
+            ])
 
     def do_destroy(self, arg):
         """Remove an instance based on class name and ID"""
@@ -69,10 +71,12 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) == 1:
             print("** instance id missing **")
         elif args[0] + '.' + args[1] not in models.storage\
-                                              ._FileStorage__objects.keys():
+                ._FileStorage__objects.keys():
             print("** no instance found **")
         else:
-            del models.storage._FileStorage__objects[args[0] + '.' + args[1]]
+            del models.storage._FileStorage__objects[
+                args[0] + '.' + args[1]
+            ]
             models.storage.save()
 
     def do_all(self, arg):
@@ -106,9 +110,11 @@ class HBNBCommand(cmd.Cmd):
             elif args[1].strip('()') == 'count':
                 self.obj_count(args[0])
             elif args[1].split('(')[0] == 'show':
-                self.do_show(args[0] + ' ' + args[1].split('(')[1].strip(')'))
+                self.do_show(args[0] + ' ' +
+                             args[1].split('(')[1].strip(')'))
             elif args[1].split('(')[0] == 'destroy':
-                self.do_destroy(args[0] + ' ' + args[1].split('(')[1].strip(')'))
+                self.do_destroy(args[0] + ' ' +
+                                args[1].split('(')[1].strip(')'))
             elif args[1].split('(')[0] == 'update':
                 arg0 = args[0]
                 if ', ' not in args[1]:
@@ -116,18 +122,19 @@ class HBNBCommand(cmd.Cmd):
                     self.do_update(arg0 + ' ' + arg1)
                 elif ', ' in args[1] and '{' in args[1] and ':' in args[1]:
                     arg1 = args[1].split('(')[1].strip(')').split(', ', 1)[0]
-                    attr_dict = ast.literal_eval(args[1].split('(')[1]
-                                                 .strip(')').split(', ', 1)[1])
+                    attr_dict = ast.literal_eval(
+                        args[1].split('(')[1].strip(')').split(', ', 1)[1]
+                    )
                     for key, value in attr_dict.items():
                         self.do_update(arg0 + ' ' + arg1 + ' ' +
                                        key + ' ' + str(value))
                 elif ', ' in args[1] and\
-                     len(args[1].split('(')[1].strip(')').split(', ')) == 2:
+                        len(args[1].split('(')[1].strip(')').split(', ')) == 2:
                     arg1 = args[1].split('(')[1].strip(')').split(', ')[0]
                     arg2 = args[1].split('(')[1].strip(')').split(', ')[1]
                     self.do_update(arg0 + ' ' + arg1 + ' ' + arg2)
                 elif ', ' in args[1] and\
-                     len(args[1].split('(')[1].strip(')').split(', ')) >= 3:
+                        len(args[1].split('(')[1].strip(')').split(', ')) >= 3:
                     arg1 = args[1].split('(')[1].strip(')').split(', ')[0]
                     arg2 = args[1].split('(')[1].strip(')').split(', ')[1]
                     arg3 = args[1].split('(')[1].strip(')').split(', ')[2]
@@ -163,14 +170,16 @@ class HBNBCommand(cmd.Cmd):
         elif len(args) == 1:
             print("** instance id missing **")
         elif args[0] + '.' + args[1] not in models.storage\
-                                              ._FileStorage__objects.keys():
+                ._FileStorage__objects.keys():
             print("** no instance found **")
         elif len(args) == 2:
             print("** attribute name missing **")
         elif len(args) == 3:
             print("** value missing **")
         else:
-            obj = models.storage._FileStorage__objects[args[0] + '.' + args[1]]
+            obj = models.storage._FileStorage__objects[
+                args[0] + '.' + args[1]
+            ]
             if args[2] in obj.__dict__.keys():
                 try:
                     if args[3].isdigit():
